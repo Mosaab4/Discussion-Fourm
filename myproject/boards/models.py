@@ -9,7 +9,7 @@ class Board(models.Model):
     description = models.CharField(max_length=100)
 
     def __str__(self):
-        self.name
+        return self.name
 
 class Topic(models.Model):
     subject = models.CharField(max_length=255)
