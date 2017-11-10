@@ -13,3 +13,13 @@ def home(request):
         'boards':boards,
     }
     return render(request,'home.html',context)
+
+def board_topics(request, pk):
+    board = Board.objects.get(pk=pk)
+
+    context = {
+        'board':board,
+    }
+
+    return render(request,"topics.html",context)
+    
