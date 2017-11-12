@@ -2,3 +2,7 @@
     background-color: black;
     color: white;
 }
+
+.navbar-brand{
+    font-family: 'Peralta',cursive;
+}
