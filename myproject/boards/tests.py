@@ -95,8 +95,8 @@ class NewTopicTests(TestCase):
         response = self.client.post(url, data)
 
         self.assertEquals(response.status_code, 200)
-        self.assertFalse(Topic.objects.exist())
-        self.assertFalse(Post.objects.exist())
+        self.assertFalse(Topic.objects.exists())
+        self.assertFalse(Post.objects.exists())
 
 
     def test_new_topic_view_success_status_code(self):
