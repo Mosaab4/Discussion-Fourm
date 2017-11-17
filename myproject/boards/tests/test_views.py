@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.urls import resolve
-
-from .views import home,board_topics, new_topic
-from .models import Board, Topic,Post
 from django.contrib.auth.models import User
-from .forms import NewTopicForm
+
+from ..views import home,board_topics, new_topic
+from ..models import Board, Topic,Post
+from ..forms import NewTopicForm
 
 # Create your tests here.
 class HomeTests(TestCase):
