@@ -59,3 +59,4 @@ class InvalidPasswordResetTest(TestCase):
         self.assertEqual(0 ,len(mail.outbox))
 
 
+
