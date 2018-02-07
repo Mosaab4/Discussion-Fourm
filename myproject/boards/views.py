@@ -11,12 +11,12 @@ from django.db.models import Count
 from django.views.generic import UpdateView,ListView
 from django.utils import timezone
 from django.core.paginator import Paginator ,EmptyPage, PageNotAnInteger
-
+from django.urls import reverse_lazy
 from .forms import NewTopicForm, PostForm
 from .models import Board, Topic, Post
 
 
-
+   
 class BoardListView(ListView):
     model = Board
     context_object_name = 'boards'
