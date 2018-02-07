@@ -6,20 +6,20 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse , Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.db.models import Count
+from django.views.generic import UpdateView,ListView
+from django.utils import timezone
 
 from .forms import NewTopicForm, PostForm
 from .models import Board, Topic, Post
 
 
 
-
-def home(request):
-    boards = Board.objects.all()
-    context = {
-        'boards':boards,
-    }
-    return render(request,'home.html',context)
+class BoardListView(ListView):
+    model = Board
+    context_object_name = 'boards'
+    template_name = 'home.html'
 
 def board_topics(request, pk):
   
@@ -77,4 +77,39 @@ def reply_topic(request, pk, topic_pk):
     else:
         form = PostForm()
     return render(request, 'reply_topic.html', {'topic': topic, 'form': form})
+
+
+@method_decorator(login_required, name='dispatch')
+class PostUpdateView(UpdateView):
+    model = Post
+    fields = ('message', )
+    template_name = 'edit_post.html'
+    pk_url_kwarg = 'post_pk'
+    context_object_name = 'post'
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     return queryset.filter(created_by=self.request.user)
+
+        
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.updated_by = self.request.user
+        post.updated_at = timezone.now()
+        post.save()
+        return redirect('topic_posts', pk=post.topic.board.pk, topic_pk=post.topic.pk)
+
+
+        
+    
+    
+    
+    
+    
+
+
+
+
+
 
